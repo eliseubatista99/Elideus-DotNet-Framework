@@ -1,6 +1,6 @@
 ﻿namespace ElideusDotNetFramework.Contracts.Operations
 {
-    public class VoidOperationOutput : BaseOutput
+    public class VoidOperationOutput : OperationOutput
     {
     }
 }
