@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata minClientVersion="3.3">
+        <id>ElideusDotNetFramework</id>
+        <version>1.0.0</version>
+        <title>Elideus Dot Net Framework</title>
+        <authors>eliseubatista99</authors>
+        <description>Framework For Dot Net Core Web Api</description>
+        <contentFiles>
+            <files include="*" />
+        </contentFiles> 
+    </metadata>
+</package>
