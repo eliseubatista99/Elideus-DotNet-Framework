@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using ElideusDotNetFramework.Contracts.Providers;
+using ElideusDotNetFramework.Providers.Contracts;
 
 namespace ElideusDotNetFramework.Providers
 {
     public class MapperProvider: IMapperProvider
     {
-        private IMapper mapper;
+        private IMapper? mapper;
 
         public Target Map<Source, Target>(Source source)
         {
-            return mapper.Map<Target>(source);
+            return mapper!.Map<Target>(source);
         }
 
         public void CreateMapper(List<Profile> profiles)

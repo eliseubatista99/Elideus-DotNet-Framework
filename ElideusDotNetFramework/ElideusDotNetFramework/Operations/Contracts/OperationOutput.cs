@@ -1,7 +1,7 @@
-﻿using ElideusDotNetFramework.Contracts.Errors;
+﻿using ElideusDotNetFramework.Errors.Contracts;
 using System.Net;
 
-namespace ElideusDotNetFramework.Contracts.Operations
+namespace ElideusDotNetFramework.Operations.Contracts
 {
     public class OperationOutput
     {

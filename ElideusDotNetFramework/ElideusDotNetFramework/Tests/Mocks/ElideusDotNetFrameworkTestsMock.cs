@@ -4,14 +4,14 @@
     {
         protected static readonly object _lock = new object();
 
-        private static T _instanceMock;
+        private static T? _instanceMock;
 
-        protected virtual T ConfigureMock()
+        protected virtual T? ConfigureMock()
         {
-            return default(T);
+            return default;
         }
 
-        public T Mock()
+        public T? Mock()
         {
             lock (_lock)
             {
@@ -20,7 +20,8 @@
                     return _instanceMock;
                 }
 
-                return ConfigureMock();
+                _instanceMock = ConfigureMock();
+                return _instanceMock;
             }
         }
     }

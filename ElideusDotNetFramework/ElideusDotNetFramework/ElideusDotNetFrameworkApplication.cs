@@ -1,4 +1,4 @@
-﻿using ElideusDotNetFramework.Contracts.Providers;
+﻿using ElideusDotNetFramework.Providers.Contracts;
 using ElideusDotNetFramework.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

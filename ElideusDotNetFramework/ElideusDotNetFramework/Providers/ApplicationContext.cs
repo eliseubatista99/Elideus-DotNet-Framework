@@ -1,4 +1,4 @@
-﻿using ElideusDotNetFramework.Contracts.Providers;
+﻿using ElideusDotNetFramework.Providers.Contracts;
 
 namespace ElideusDotNetFramework.Providers
 {

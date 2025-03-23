@@ -1,4 +1,4 @@
-﻿namespace ElideusDotNetFramework.Contracts.Operations
+﻿namespace ElideusDotNetFramework.Operations.Contracts
 {
     public class VoidOperationOutput : OperationOutput
     {

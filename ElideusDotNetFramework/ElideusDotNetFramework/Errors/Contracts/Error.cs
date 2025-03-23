@@ -1,4 +1,4 @@
-﻿namespace ElideusDotNetFramework.Contracts.Errors
+﻿namespace ElideusDotNetFramework.Errors.Contracts
 {
     public class Error
     {

@@ -1,5 +1,5 @@
-﻿using ElideusDotNetFramework.Contracts.Operations;
-using ElideusDotNetFramework.Contracts.Providers;
+﻿using ElideusDotNetFramework.Operations.Contracts;
+using ElideusDotNetFramework.Providers.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
