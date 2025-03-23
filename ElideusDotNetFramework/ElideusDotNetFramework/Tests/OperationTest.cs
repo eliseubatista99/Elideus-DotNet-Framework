@@ -8,19 +8,10 @@ namespace ElideusDotNetFramework.Tests;
 
 public class OperationTest<TOperation, TIn, TOut> where TOperation : BaseOperation<TIn, TOut> where TIn : OperationInput where TOut : OperationOutput
 {
-    protected TOperation? operationToTest;
+    protected TOperation? OperationToTest;
 
     protected virtual void Setup()
     {
-
-    }
-
-    protected virtual async Task<TOut> SimulateCall(TOperation operation, TIn input)
-    {
-        var callResult = await operation!.Call(input).ConfigureAwait(false);
-
-        var result = (OperationHttpResult) callResult;
-
-        return (TOut) result.Output!;
+        ElideusDotNetFrameworkTestsBuilder.InitializeBuilder();
     }
 }

@@ -5,30 +5,31 @@ using Microsoft.Extensions.Logging;
 
 namespace ElideusDotNetFramework.Tests.Mocks
 {
-    public class TestsApplicationContext : ElideusDotNetFrameworkTestsMock<IApplicationContext>, IApplicationContext
+    public class ApplicationContextMock : ElideusDotNetFrameworkTestsMock<IApplicationContext>, IApplicationContext
     {
+        protected virtual Dictionary<string, string?> Configurations { get; set; } = new Dictionary<string, string?>
+        {
+            {"SectionName:SomeKey", "SectionValue"},
+        };
+
         protected List<object> dependencies = new List<object>();
 
-        protected virtual IConfiguration MockConfiguration()
-        {
-            var inMemorySettings = new Dictionary<string, string?> {
-                {"SectionName:SomeKey", "SectionValue"},
-                //...populate as needed for the test
-            };
 
+
+        protected IConfiguration? MockConfiguration()
+        {
             var config = new ConfigurationBuilder()
-                .AddInMemoryCollection(inMemorySettings)
+                .AddInMemoryCollection(Configurations)
                 .Build();
 
             return config;
-
         }
 
-        protected virtual ILogger<IApplicationContext> MockLogger()
+        protected ILogger? MockLogger()
         {
             using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
-                .SetMinimumLevel(LogLevel.Trace)
-                .AddConsole());
+               .SetMinimumLevel(LogLevel.Trace)
+               .AddConsole());
 
             var logger = loggerFactory.CreateLogger<IApplicationContext>();
 
