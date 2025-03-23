@@ -1,38 +1,30 @@
-﻿using ElideusDotNetFramework.Providers;
-using ElideusDotNetFramework.Providers.Contracts;
+﻿using ElideusDotNetFramework.Providers.Contracts;
+using ElideusDotNetFramework.Tests;
 using ElideusDotNetFramework.Tests.Mocks;
+using TechTalk.SpecFlow.xUnit.SpecFlowPlugin;
 
+[assembly: AssemblyFixture(typeof(ElideusDotNetFrameworkTestsBuilder))]
 namespace ElideusDotNetFramework.Tests
 {
-    public class ElideusDotNetFrameworkTestsBuilder
+    public class ElideusDotNetFrameworkTestsBuilder : IDisposable
     {
-        protected static bool _isInitialized { get; set; } = false;
-        public static ElideusDotNetFrameworkTestsBuilder? Instance { get; private set; }
-        public static IApplicationContext? ApplicationContextMock { get; private set; }
+        public IApplicationContext? ApplicationContextMock { get; private set; }
 
-        protected virtual IMapperProvider MockAutoMapper()
+        public ElideusDotNetFrameworkTestsBuilder()
         {
-            var mapperProvider = new MapperProvider();
+            ApplicationContextMock = new ApplicationContextMock().Mock();
 
-            mapperProvider.CreateMapper(new List<AutoMapper.Profile>());
-
-            return mapperProvider;
+            Initialize();
         }
 
-        protected virtual void ConfigureMocks()
+        protected virtual void Initialize()
         {
-            if(!_isInitialized)
-            {
-                _isInitialized = true;
 
-                //Mock application context
-                ApplicationContextMock = new ApplicationContextMock().Mock();
+        }
 
-                //Mock automapper
-                ApplicationContextMock!.AddTestDependency(MockAutoMapper());
-            }
-
-
+        public void Dispose()
+        {
+            //Executes after all tests are done
         }
     }
 }

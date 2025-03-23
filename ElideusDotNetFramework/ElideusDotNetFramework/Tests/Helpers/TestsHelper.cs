@@ -1,12 +1,5 @@
-﻿using Azure;
-using ElideusDotNetFramework.Operations;
+﻿using ElideusDotNetFramework.Operations;
 using ElideusDotNetFramework.Operations.Contracts;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElideusDotNetFramework.Tests.Helpers
 {

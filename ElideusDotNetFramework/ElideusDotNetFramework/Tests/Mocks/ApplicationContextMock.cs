@@ -1,4 +1,6 @@
-﻿using ElideusDotNetFramework.Providers.Contracts;
+﻿using AutoMapper;
+using ElideusDotNetFramework.Providers;
+using ElideusDotNetFramework.Providers.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -7,14 +9,17 @@ namespace ElideusDotNetFramework.Tests.Mocks
 {
     public class ApplicationContextMock : TestMock<IApplicationContext>, IApplicationContext
     {
+        protected List<object> dependencies = new List<object>();
+
         protected virtual Dictionary<string, string?> Configurations { get; set; } = new Dictionary<string, string?>
         {
             {"SectionName:SomeKey", "SectionValue"},
         };
 
-        protected List<object> dependencies = new List<object>();
+        protected virtual List<Profile> MapperProfiles { get; set; } = new List<Profile>
+        {
 
-
+        };
 
         protected IConfiguration? MockConfiguration()
         {
@@ -24,6 +29,16 @@ namespace ElideusDotNetFramework.Tests.Mocks
 
             return config;
         }
+
+        protected IMapperProvider MockAutoMapper()
+        {
+            var mapperProvider = new MapperProvider();
+
+            mapperProvider.CreateMapper(MapperProfiles);
+
+            return mapperProvider;
+        }
+
 
         protected ILogger? MockLogger()
         {
@@ -42,9 +57,12 @@ namespace ElideusDotNetFramework.Tests.Mocks
 
             var configuration = MockConfiguration();
             var logger = MockLogger();
+            var mapper = MockAutoMapper();
 
             AddTestDependency(configuration);
             AddTestDependency(logger);
+            AddTestDependency(mapper);
+
 
             return this;
         }
