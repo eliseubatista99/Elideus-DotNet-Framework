@@ -1,8 +1,10 @@
-﻿using ElideusDotNetFramework.Contracts.Errors;
-using ElideusDotNetFramework.Contracts.Operations;
-using ElideusDotNetFramework.Contracts.Providers;
+﻿#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
+using ElideusDotNetFramework.Operations.Contracts;
+using ElideusDotNetFramework.Errors.Contracts;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using ElideusDotNetFramework.Providers.Contracts;
 
 namespace ElideusDotNetFramework.Operations
 {
@@ -40,9 +42,9 @@ namespace ElideusDotNetFramework.Operations
         /// </summary>
         /// <param name="input">The operation input</param>
         /// <returns>The operation output</returns>
-        protected virtual async Task<TOut> ExecuteAsync(TIn input)
+        protected virtual async Task<TOut?> ExecuteAsync(TIn input)
         {
-            return default(TOut);
+            return default;
         }
 
         /// <summary>
@@ -88,3 +90,4 @@ namespace ElideusDotNetFramework.Operations
         }
     }
 }
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

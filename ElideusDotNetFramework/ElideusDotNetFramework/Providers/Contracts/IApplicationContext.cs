@@ -1,4 +1,4 @@
-﻿namespace ElideusDotNetFramework.Contracts.Providers
+﻿namespace ElideusDotNetFramework.Providers.Contracts
 {
     public interface IApplicationContext
     {
