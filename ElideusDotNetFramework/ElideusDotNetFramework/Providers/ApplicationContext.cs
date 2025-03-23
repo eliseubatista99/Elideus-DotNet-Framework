@@ -6,22 +6,31 @@ namespace ElideusDotNetFramework.Providers
 {
     public class ApplicationContext : IApplicationContext
     {
-        private WebApplicationBuilder? builder;
+        private static WebApplicationBuilder? applicationBuilder;
 
-        public void Initialize(ref WebApplicationBuilder _builder)
-        {
-            builder = _builder;
-        }
-
-        public void AddDependency<TService, TImplementation>() where TService : class
+        public void AddDependency<TService, TImplementation>(ref WebApplicationBuilder builder) where TService : class
             where TImplementation : class, TService
         {
-            builder?.Services.AddSingleton<TService, TImplementation>();
+            builder.Services.AddSingleton<TService, TImplementation>();
+            applicationBuilder = builder;
         }
+
+        public void AddDependency<TService, TImplementation>(ref WebApplicationBuilder builder, TImplementation implementation) where TService : class
+            where TImplementation : class, TService
+        {
+            builder.Services.AddSingleton<TService>(implementation);
+            applicationBuilder = builder;
+        }
+
+        public void AddTestDependency<T>(T service)
+        {
+            //Do nothing
+        }
+
 
         public T? GetDependency<T>() where T : class
         {
-            return builder?.Services.BuildServiceProvider().GetService<T>();
+            return applicationBuilder!.Services.BuildServiceProvider().GetService<T>()!;
         }
     }
 }

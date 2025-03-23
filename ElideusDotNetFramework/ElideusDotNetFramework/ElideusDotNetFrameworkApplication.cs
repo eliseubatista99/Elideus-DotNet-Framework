@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ElideusDotNetFramework.Operations;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ElideusDotNetFramework
 {
-    class ElideusDotNetFrameworkApplication
+    public class ElideusDotNetFrameworkApplication
     {
         protected IApplicationContext? ApplicationContext { get; set; }
         protected virtual bool UseAuthentication { get; set; } = false;
@@ -15,24 +16,24 @@ namespace ElideusDotNetFramework
 
         protected virtual void InjectDependencies(ref WebApplicationBuilder builder)
         {
-            ApplicationContext?.AddDependency<IMapperProvider, MapperProvider>();
+            var mapper = new MapperProvider();
+            mapper.CreateMapper(new List<AutoMapper.Profile>());
+
+            ApplicationContext?.AddDependency<IMapperProvider, MapperProvider>(ref builder, mapper);
         }
 
         protected void InitializeApplicationContext(ref WebApplicationBuilder builder)
         {
             builder.Services.AddSingleton<IApplicationContext, ApplicationContext>();
             ApplicationContext = builder.Services.BuildServiceProvider().GetService<IApplicationContext>()!;
-
-            ApplicationContext.Initialize(ref builder);
         }
 
         protected virtual void ConfigureAuthentication(ref WebApplicationBuilder builder)
         {
             // Add the process of verifying what access they have
-            builder.Services.AddAuthorization();
         }
 
-        protected virtual void AddAuthorizationToSwagger(ref WebApplicationBuilder builder)
+        protected virtual void AddAuthorizationToSwagger(ref WebApplicationBuilder builder, ref SwaggerGenOptions options)
         {
             // Add the process of verifying what access they have
             builder.Services.AddAuthorization();
@@ -43,7 +44,12 @@ namespace ElideusDotNetFramework
 
         }
 
-        protected void MapOperations(ref WebApplicationBuilder builder, ref WebApplication app)
+        protected virtual void InitializeAutoMapper()
+        {
+
+        }
+
+        protected void MapOperations(ref WebApplication app)
         {
             OperationsBuilder.MapOperations(ref app, ApplicationContext!);
         }
@@ -62,10 +68,14 @@ namespace ElideusDotNetFramework
 
             this.InitializeApplicationContext(ref builder);
             this.InjectDependencies(ref builder);
+            this.InitializeAutoMapper();
 
             if (UseAuthentication)
             {
                 this.ConfigureAuthentication(ref builder);
+
+                builder.Services.AddAuthorization();
+
             }
 
             InitializeDatabase(ref builder);
@@ -73,14 +83,17 @@ namespace ElideusDotNetFramework
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
-            if (UseAuthentication)
+            builder.Services.AddSwaggerGen(opt =>
             {
-                AddAuthorizationToSwagger(ref builder);
-            }
+                if (UseAuthentication)
+                {
+                    AddAuthorizationToSwagger(ref builder, ref opt);
+                }
+            });
 
             var app = builder.Build();
 
-            MapOperations(ref builder,ref app);
+            MapOperations(ref app);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
