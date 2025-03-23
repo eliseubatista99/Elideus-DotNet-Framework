@@ -1,40 +1,27 @@
 ﻿using ElideusDotNetFramework.Providers.Contracts;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ElideusDotNetFramework.Providers
 {
     public class ApplicationContext : IApplicationContext
     {
-        private List<object> dependencies = new List<object>();
+        private WebApplicationBuilder? builder;
 
-        public void AddDependencies(List<object> _dependencies)
+        public void Initialize(ref WebApplicationBuilder _builder)
         {
-            for(int i = 0; i < _dependencies.Count; i++)
-            {
-                var existingDependencyIndex = _dependencies.FindIndex(d => d.Equals(_dependencies[i]));
+            builder = _builder;
+        }
 
-                // If the dependency is already added, override it
-                if (existingDependencyIndex != -1)
-                {
-                    dependencies[existingDependencyIndex] = _dependencies[i];
-                }
-                else
-                {
-                    dependencies.Add(_dependencies[i]);
-                }
-            }
+        public void AddDependency<TService, TImplementation>() where TService : class
+            where TImplementation : class, TService
+        {
+            builder?.Services.AddSingleton<TService, TImplementation>();
         }
 
         public T? GetDependency<T>() where T : class
         {
-            foreach (var dependency in dependencies)
-            {
-                if (dependency is T)
-                {
-                    return (T)dependency;
-                }
-            }
-
-            return default(T);
+            return builder?.Services.BuildServiceProvider().GetService<T>();
         }
     }
 }

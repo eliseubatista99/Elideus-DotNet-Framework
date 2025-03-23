@@ -10,10 +10,13 @@ namespace ElideusDotNetFramework.Operations
 {
     public class BaseOperation<TIn, TOut> where TIn : OperationInput where TOut : OperationOutput
     {
+        public string OperationEndpoint { get; set; } = "/BaseOperation";
+
         protected IApplicationContext executionContext;
 
-        public BaseOperation(IApplicationContext context)
+        public BaseOperation(IApplicationContext context, string endpoint)
         {
+            OperationEndpoint = endpoint;
             executionContext = context;
         }
 

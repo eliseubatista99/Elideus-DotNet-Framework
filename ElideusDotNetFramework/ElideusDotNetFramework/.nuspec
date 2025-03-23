@@ -10,9 +10,7 @@
 		<readme>README.md</readme>
 		<description>Framework For Dot Net Core Web Api</description>
 		<releaseNotes>
-			1.0.3 - Added tests
-			1.0.2 - Merged contracts and implementations
-			1.0.1 - Tested deployment to nuget.org
+			1.0.4 - Improved Application Context
 			1.0.0 - Created base project
 		</releaseNotes>
 		<copyright>Copyright 2025 Eliseu Batista</copyright>

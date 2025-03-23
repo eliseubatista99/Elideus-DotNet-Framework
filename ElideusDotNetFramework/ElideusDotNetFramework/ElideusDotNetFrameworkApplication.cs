@@ -3,18 +3,27 @@ using ElideusDotNetFramework.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ElideusDotNetFramework.Operations;
 
 namespace ElideusDotNetFramework
 {
     class ElideusDotNetFrameworkApplication
     {
+        protected IApplicationContext? ApplicationContext { get; set; }
         protected virtual bool UseAuthentication { get; set; } = false;
+        protected virtual OperationsBuilder OperationsBuilder { get; set; } = new OperationsBuilder();
 
-        protected virtual IServiceCollection InjectDependencies(ref WebApplicationBuilder builder)
+        protected virtual void InjectDependencies(ref WebApplicationBuilder builder)
         {
-            builder.Services.AddSingleton<IMapperProvider, MapperProvider>();
+            ApplicationContext?.AddDependency<IMapperProvider, MapperProvider>();
+        }
 
-            return builder.Services;
+        protected void InitializeApplicationContext(ref WebApplicationBuilder builder)
+        {
+            builder.Services.AddSingleton<IApplicationContext, ApplicationContext>();
+            ApplicationContext = builder.Services.BuildServiceProvider().GetService<IApplicationContext>()!;
+
+            ApplicationContext.Initialize(ref builder);
         }
 
         protected virtual void ConfigureAuthentication(ref WebApplicationBuilder builder)
@@ -34,9 +43,9 @@ namespace ElideusDotNetFramework
 
         }
 
-        protected virtual void MapOperations(ref WebApplication app)
+        protected void MapOperations(ref WebApplicationBuilder builder, ref WebApplication app)
         {
-
+            OperationsBuilder.MapOperations(ref app, ApplicationContext!);
         }
 
 
@@ -51,7 +60,8 @@ namespace ElideusDotNetFramework
                        .AllowAnyHeader();
             }));
 
-            var serviceCollection = this.InjectDependencies(ref builder);
+            this.InitializeApplicationContext(ref builder);
+            this.InjectDependencies(ref builder);
 
             if (UseAuthentication)
             {
@@ -70,7 +80,7 @@ namespace ElideusDotNetFramework
 
             var app = builder.Build();
 
-            MapOperations(ref app);
+            MapOperations(ref builder,ref app);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
