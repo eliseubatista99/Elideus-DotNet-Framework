@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<Version>1.0.3</Version>
+	<Version>1.0.26</Version>
 	<IsPackable>true</IsPackable>
 	<TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,6 +10,7 @@
     <Title>Elideus Dot Net Framework</Title>
     <Authors>eliseubatista99</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
@@ -23,6 +24,8 @@
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit" Version="2.9.2" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+		<PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>

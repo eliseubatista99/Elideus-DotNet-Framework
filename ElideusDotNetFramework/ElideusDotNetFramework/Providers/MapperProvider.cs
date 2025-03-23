@@ -5,7 +5,7 @@ namespace ElideusDotNetFramework.Providers
 {
     public class MapperProvider: IMapperProvider
     {
-        private IMapper? mapper;
+        private static IMapper? mapper;
 
         public Target Map<Source, Target>(Source source)
         {

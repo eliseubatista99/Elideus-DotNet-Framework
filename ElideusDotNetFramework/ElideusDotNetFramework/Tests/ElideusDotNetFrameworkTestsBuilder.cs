@@ -1,28 +1,27 @@
-﻿namespace ElideusDotNetFramework.Tests
-{
-    public class ElideusDotNetFrameworkTestsBuilder
-    {
-        protected static bool _initialized = false;
-        protected static readonly object _lock = new object();
+﻿using ElideusDotNetFramework.Providers.Contracts;
+using ElideusDotNetFramework.Tests;
+using TechTalk.SpecFlow.xUnit.SpecFlowPlugin;
 
-        protected virtual void ConfigureMocks()
+[assembly: AssemblyFixture(typeof(ElideusDotNetFrameworkTestsBuilder))]
+namespace ElideusDotNetFramework.Tests
+{
+    public class ElideusDotNetFrameworkTestsBuilder : IDisposable
+    {
+        public IApplicationContext? ApplicationContextMock { get; protected set; }
+
+        public ElideusDotNetFrameworkTestsBuilder()
         {
-           
+            Initialize();
         }
 
-        public void InitializeTests()
+        protected virtual void Initialize()
         {
-            lock (_lock)
-            {
-                if (_initialized)
-                {
-                    return;
-                }
 
-                ConfigureMocks();
+        }
 
-                _initialized = true;
-            }
+        public void Dispose()
+        {
+            //Executes after all tests are done
         }
     }
 }
