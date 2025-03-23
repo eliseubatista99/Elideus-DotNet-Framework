@@ -8,7 +8,7 @@ namespace ElideusDotNetFramework.Tests
 {
     public class ElideusDotNetFrameworkTestsBuilder : IDisposable
     {
-        public IApplicationContext? ApplicationContextMock { get; private set; }
+        public IApplicationContext? ApplicationContextMock { get; protected set; }
 
         public ElideusDotNetFrameworkTestsBuilder()
         {
