@@ -48,5 +48,6 @@ namespace ElideusDotNetFramework.Tests
                 _initialized = true;
             }
         }
+
     }
 }
