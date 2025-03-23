@@ -12,8 +12,6 @@ namespace ElideusDotNetFramework.Tests
 
         public ElideusDotNetFrameworkTestsBuilder()
         {
-            ApplicationContextMock = new ApplicationContextMock().Mock();
-
             Initialize();
         }
 
