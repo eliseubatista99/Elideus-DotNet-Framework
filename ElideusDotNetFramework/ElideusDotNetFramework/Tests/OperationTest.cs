@@ -7,7 +7,11 @@ public class OperationTest<TOperation, TIn, TOut> where TOperation : BaseOperati
 {
     protected TOperation? OperationToTest;
 
-    protected virtual void Setup()
+
+    protected ElideusDotNetFrameworkTestsBuilder TestsBuilder;
+
+    public OperationTest(ElideusDotNetFrameworkTestsBuilder _testBuilder)
     {
+        this.TestsBuilder = _testBuilder;
     }
 }

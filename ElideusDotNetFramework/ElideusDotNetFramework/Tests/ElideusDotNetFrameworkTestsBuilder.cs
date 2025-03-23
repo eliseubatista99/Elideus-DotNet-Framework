@@ -1,6 +1,5 @@
 ﻿using ElideusDotNetFramework.Providers.Contracts;
 using ElideusDotNetFramework.Tests;
-using ElideusDotNetFramework.Tests.Mocks;
 using TechTalk.SpecFlow.xUnit.SpecFlowPlugin;
 
 [assembly: AssemblyFixture(typeof(ElideusDotNetFrameworkTestsBuilder))]
