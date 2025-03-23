@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>ElideusDotNetFramework</id>
-		<version>1.0.20</version>
+		<version>1.0.21</version>
 		<authors>Eliseu Batista</authors>
 		<license type="expression">MIT</license>
 		<licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
@@ -10,6 +10,7 @@
 		<readme>README.md</readme>
 		<description>Framework For Dot Net Core Web Api</description>
 		<releaseNotes>
+			1.0.21 - Trying to fix dependencies initialization in tests
 			1.0.20 - Fixed Tests Mocks Builder
 			1.0.19 - Fixed Tests builder concurrency
 			1.0.18 - Fixed configuration and logger mock

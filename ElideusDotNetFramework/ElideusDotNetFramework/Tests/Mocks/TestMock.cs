@@ -1,6 +1,6 @@
 ﻿namespace ElideusDotNetFramework.Tests.Mocks
 {
-    public class ElideusDotNetFrameworkTestsMock<T>
+    public class TestMock<T>
     {
         protected static readonly object _lock = new object();
 

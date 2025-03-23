@@ -6,33 +6,32 @@ namespace ElideusDotNetFramework.Tests
 {
     public class ElideusDotNetFrameworkTestsBuilder
     {
-        protected static readonly object _lock = new object();
+        protected static bool _isInitialized { get; set; } = false;
         public static ElideusDotNetFrameworkTestsBuilder? Instance { get; private set; }
-        public IApplicationContext? ApplicationContextMock { get; private set; }
-        protected virtual ElideusDotNetFrameworkMocksBuilder? MocksBuilder { get; set; } = new ElideusDotNetFrameworkMocksBuilder();
+        public static IApplicationContext? ApplicationContextMock { get; private set; }
 
-        public static ElideusDotNetFrameworkTestsBuilder InitializeBuilder()
+        protected virtual IMapperProvider MockAutoMapper()
         {
-            lock (_lock)
+            var mapperProvider = new MapperProvider();
+
+            mapperProvider.CreateMapper(new List<AutoMapper.Profile>());
+
+            return mapperProvider;
+        }
+
+        protected virtual void ConfigureMocks()
+        {
+            if(!_isInitialized)
             {
-                if (Instance == null)
-                {
-                    Instance = new ElideusDotNetFrameworkTestsBuilder();
+                _isInitialized = true;
 
-                    //Mock application context
-                    Instance.ApplicationContextMock = new ApplicationContextMock().Mock();
+                //Mock application context
+                ApplicationContextMock = new ApplicationContextMock().Mock();
 
-                    //Mock automapper
-                    var autoMapper = Instance.MocksBuilder!.MockAutoMapper();
-
-                    //Add automapper to application context dependencies
-                    Instance.ApplicationContextMock!.AddTestDependency<IMapperProvider>(new MapperProvider());
-
-                    Instance.MocksBuilder.ConfigureRemainingMocks(Instance.ApplicationContextMock);
-                }
-
-                return Instance;
+                //Mock automapper
+                ApplicationContextMock!.AddTestDependency(MockAutoMapper());
             }
+
 
         }
     }

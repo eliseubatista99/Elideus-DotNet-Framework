@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ElideusDotNetFramework.Tests.Mocks
 {
-    public class ApplicationContextMock : ElideusDotNetFrameworkTestsMock<IApplicationContext>, IApplicationContext
+    public class ApplicationContextMock : TestMock<IApplicationContext>, IApplicationContext
     {
         protected virtual Dictionary<string, string?> Configurations { get; set; } = new Dictionary<string, string?>
         {

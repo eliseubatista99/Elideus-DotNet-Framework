@@ -12,6 +12,5 @@ public class OperationTest<TOperation, TIn, TOut> where TOperation : BaseOperati
 
     protected virtual void Setup()
     {
-        ElideusDotNetFrameworkTestsBuilder.InitializeBuilder();
     }
 }
