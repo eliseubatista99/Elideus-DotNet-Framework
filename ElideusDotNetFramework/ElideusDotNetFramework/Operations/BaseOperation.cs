@@ -5,6 +5,7 @@ using ElideusDotNetFramework.Errors.Contracts;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using ElideusDotNetFramework.Providers.Contracts;
+using Newtonsoft.Json;
 
 namespace ElideusDotNetFramework.Operations
 {
@@ -26,7 +27,7 @@ namespace ElideusDotNetFramework.Operations
         /// </summary>
         /// <param name="input">The operation input</param>
         /// <returns>A possible error and status code</returns>
-        protected virtual async Task<(HttpStatusCode? StatusCode, Error? Error)> ValidateInput(OperationInput input)
+        protected virtual async Task<(HttpStatusCode? StatusCode, Error? Error)> ValidateInput(TIn input)
         {
             return (HttpStatusCode.OK, null);
         }
@@ -67,7 +68,7 @@ namespace ElideusDotNetFramework.Operations
                 // If no code was specified, only the error, assume the bad request code
                 var code = validateInputResult.StatusCode ?? HttpStatusCode.BadRequest;
 
-                return new OperationHttpResult(new OperationOutput
+                return BuildOperationOutput(new OperationOutput
                 {
                     StatusCode = code,
                     Error = validateInputResult.Error
@@ -78,7 +79,7 @@ namespace ElideusDotNetFramework.Operations
 
             if (executionResponse == null)
             {
-                return new OperationHttpResult(new OperationOutput
+                return BuildOperationOutput(new OperationOutput
                 {
                     StatusCode = HttpStatusCode.NoContent
                 });
@@ -90,6 +91,14 @@ namespace ElideusDotNetFramework.Operations
             }
 
             return new OperationHttpResult(executionResponse);
+        }
+
+        private OperationHttpResult BuildOperationOutput(OperationOutput output)
+        {
+            var serializedParent = JsonConvert.SerializeObject(output);
+            var outputInTOut = JsonConvert.DeserializeObject<TOut>(serializedParent)!;
+
+            return new OperationHttpResult(outputInTOut);
         }
     }
 }
