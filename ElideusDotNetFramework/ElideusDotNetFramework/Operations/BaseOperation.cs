@@ -1,11 +1,10 @@
 ﻿#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
-using ElideusDotNetFramework.Operations.Contracts;
-using ElideusDotNetFramework.Errors.Contracts;
 using Microsoft.AspNetCore.Http;
 using System.Net;
-using ElideusDotNetFramework.Providers.Contracts;
 using Newtonsoft.Json;
+using ElideusDotNetFramework.Errors;
+using ElideusDotNetFramework.Application;
 
 namespace ElideusDotNetFramework.Operations
 {

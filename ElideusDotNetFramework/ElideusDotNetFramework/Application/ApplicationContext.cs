@@ -1,8 +1,7 @@
-﻿using ElideusDotNetFramework.Providers.Contracts;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ElideusDotNetFramework.Providers
+namespace ElideusDotNetFramework.Application
 {
     public class ApplicationContext : IApplicationContext
     {

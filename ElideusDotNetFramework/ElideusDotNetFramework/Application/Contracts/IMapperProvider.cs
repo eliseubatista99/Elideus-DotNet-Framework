@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace ElideusDotNetFramework.Providers.Contracts
+namespace ElideusDotNetFramework.Application
 {
     public interface IMapperProvider
     {

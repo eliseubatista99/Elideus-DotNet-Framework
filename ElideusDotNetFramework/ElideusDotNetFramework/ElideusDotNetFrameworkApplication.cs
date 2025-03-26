@@ -1,10 +1,9 @@
-﻿using ElideusDotNetFramework.Providers.Contracts;
-using ElideusDotNetFramework.Providers;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ElideusDotNetFramework.Operations;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using ElideusDotNetFramework.Application;
 
 namespace ElideusDotNetFramework
 {

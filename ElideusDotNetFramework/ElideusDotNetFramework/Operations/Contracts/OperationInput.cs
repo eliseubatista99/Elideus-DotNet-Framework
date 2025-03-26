@@ -1,4 +1,4 @@
-﻿namespace ElideusDotNetFramework.Operations.Contracts
+﻿namespace ElideusDotNetFramework.Operations
 {
     public class OperationInput
     {

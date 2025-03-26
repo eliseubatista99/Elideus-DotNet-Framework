@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Net;
 
-namespace ElideusDotNetFramework.Operations.Contracts
+namespace ElideusDotNetFramework.Operations
 {
     public class OperationHttpResult : IResult
     {

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using ElideusDotNetFramework.Providers;
-using ElideusDotNetFramework.Providers.Contracts;
+using ElideusDotNetFramework.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ElideusDotNetFramework.Tests.Mocks
+namespace ElideusDotNetFramework.Tests
 {
     public class ApplicationContextMock : TestMock<IApplicationContext>, IApplicationContext
     {

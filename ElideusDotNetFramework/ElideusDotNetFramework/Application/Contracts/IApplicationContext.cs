@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace ElideusDotNetFramework.Providers.Contracts
+namespace ElideusDotNetFramework.Application
 {
     public interface IApplicationContext
     {

@@ -1,7 +1,6 @@
 ﻿using ElideusDotNetFramework.Operations;
-using ElideusDotNetFramework.Operations.Contracts;
 
-namespace ElideusDotNetFramework.Tests.Helpers
+namespace ElideusDotNetFramework.Tests
 {
     public static class TestsHelper
     {

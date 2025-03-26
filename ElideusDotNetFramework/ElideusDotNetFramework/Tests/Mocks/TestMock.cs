@@ -1,4 +1,4 @@
-﻿namespace ElideusDotNetFramework.Tests.Mocks
+﻿namespace ElideusDotNetFramework.Tests
 {
     public class TestMock<T>
     {
