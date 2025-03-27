@@ -1,5 +1,6 @@
 ﻿using ElideusDotNetFramework.Core;
 using ElideusDotNetFramework.Core.Operations;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -9,6 +10,7 @@ namespace ElideusDotNetFramework.ExternalServices
     public class ExternalServiceProvider : IExternalServiceProvider
     {
         protected IApplicationContext applicationContext { get; set; }
+        protected static HttpClient httpClient { get; set; } = new HttpClient();
 
         public ExternalServiceProvider(IApplicationContext _applicationContext)
         {
@@ -22,22 +24,23 @@ namespace ElideusDotNetFramework.ExternalServices
 
         protected virtual async Task<TOut> CallExternalPostOperation<TIn, TOut>(string endpoint, TIn input) where TIn : OperationInput where TOut : OperationOutput
         {
-            var httpClient = new HttpClient();
-            var serviceUrl = GetServiceUrl();
-            var requestUrl = $"{serviceUrl}{endpoint}";
+            httpClient.BaseAddress = new Uri(GetServiceUrl());
+            httpClient.DefaultRequestHeaders
+                  .Accept
+                  .Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
 
-            using StringContent jsonInput = new(JsonSerializer.Serialize(input), Encoding.UTF8, "application/json");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, endpoint);
 
-            using HttpResponseMessage response = await httpClient.PostAsync(requestUrl, jsonInput);
+            request.Content = new StringContent(JsonSerializer.Serialize(input),
+                                                Encoding.UTF8,
+                                                "application/json");//CONTENT-TYPE header
 
-            //response.EnsureSuccessStatusCode();
 
-            var operationHttpResult = await response.Content.ReadFromJsonAsync<OperationHttpResult>();
-            var operationResult = (TOut)operationHttpResult!.Output!;
 
-            return operationResult;
+            var response = await httpClient.SendAsync(request);
+            var operationResult = await response.Content.ReadFromJsonAsync<TOut>();
+
+            return operationResult!;
         }
-
-
     }
 }
