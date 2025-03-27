@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.PostgreSql", "ElideusDotNetFramework.PostgreSql\ElideusDotNetFramework.PostgreSql.csproj", "{3EA5FA06-FE55-465C-8EC5-5D9FA29FB4AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Authentication", "ElideusDotNetFramework.Authentication\ElideusDotNetFramework.Authentication.csproj", "{FCE8D2B9-D547-4020-89FE-669A894145BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.ExternalServices", "ElideusDotNetFramework.ExternalServices\ElideusDotNetFramework.ExternalServices.csproj", "{46893642-AA95-4803-95A0-C8056AEC2BCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{3EA5FA06-FE55-465C-8EC5-5D9FA29FB4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EA5FA06-FE55-465C-8EC5-5D9FA29FB4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EA5FA06-FE55-465C-8EC5-5D9FA29FB4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCE8D2B9-D547-4020-89FE-669A894145BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE8D2B9-D547-4020-89FE-669A894145BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE8D2B9-D547-4020-89FE-669A894145BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE8D2B9-D547-4020-89FE-669A894145BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46893642-AA95-4803-95A0-C8056AEC2BCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46893642-AA95-4803-95A0-C8056AEC2BCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46893642-AA95-4803-95A0-C8056AEC2BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46893642-AA95-4803-95A0-C8056AEC2BCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
