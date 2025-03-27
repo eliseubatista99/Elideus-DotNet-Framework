@@ -1,8 +1,7 @@
-﻿using ElideusDotNetFramework.Application;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace ElideusDotNetFramework.Operations
+namespace ElideusDotNetFramework.Core.Operations
 {
     public class OperationsBuilder
     {

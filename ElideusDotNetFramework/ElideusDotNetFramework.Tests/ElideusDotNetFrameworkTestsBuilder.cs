@@ -1,4 +1,4 @@
-﻿using ElideusDotNetFramework.Application;
+﻿using ElideusDotNetFramework.Core;
 using ElideusDotNetFramework.Tests;
 using TechTalk.SpecFlow.xUnit.SpecFlowPlugin;
 

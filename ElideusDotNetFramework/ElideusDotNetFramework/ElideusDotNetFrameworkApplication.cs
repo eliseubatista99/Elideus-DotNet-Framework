@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ElideusDotNetFramework.Operations;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using ElideusDotNetFramework.Application;
+using ElideusDotNetFramework.Core.Operations;
 
-namespace ElideusDotNetFramework
+namespace ElideusDotNetFramework.Core
 {
     public class ElideusDotNetFrameworkApplication
     {

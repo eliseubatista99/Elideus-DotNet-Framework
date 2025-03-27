@@ -1,4 +1,4 @@
-﻿using ElideusDotNetFramework.Operations;
+﻿using ElideusDotNetFramework.Core.Operations;
 
 namespace ElideusDotNetFramework.Tests
 {

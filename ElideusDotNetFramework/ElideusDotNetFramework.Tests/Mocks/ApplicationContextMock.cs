@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ElideusDotNetFramework.Application;
+using ElideusDotNetFramework.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

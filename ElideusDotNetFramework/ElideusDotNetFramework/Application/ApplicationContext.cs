@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ElideusDotNetFramework.Application
+namespace ElideusDotNetFramework.Core
 {
     public class ApplicationContext : IApplicationContext
     {

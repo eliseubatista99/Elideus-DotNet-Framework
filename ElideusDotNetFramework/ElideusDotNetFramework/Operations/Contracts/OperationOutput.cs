@@ -1,7 +1,7 @@
-﻿using ElideusDotNetFramework.Errors;
+﻿using ElideusDotNetFramework.Core.Errors;
 using System.Net;
 
-namespace ElideusDotNetFramework.Operations
+namespace ElideusDotNetFramework.Core.Operations
 {
     public class OperationOutput
     {

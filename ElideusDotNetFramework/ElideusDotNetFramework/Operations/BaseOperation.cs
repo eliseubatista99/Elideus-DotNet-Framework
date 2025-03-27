@@ -3,10 +3,9 @@
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using Newtonsoft.Json;
-using ElideusDotNetFramework.Errors;
-using ElideusDotNetFramework.Application;
+using ElideusDotNetFramework.Core.Errors;
 
-namespace ElideusDotNetFramework.Operations
+namespace ElideusDotNetFramework.Core.Operations
 {
     public class BaseOperation<TIn, TOut> where TIn : OperationInput where TOut : OperationOutput
     {

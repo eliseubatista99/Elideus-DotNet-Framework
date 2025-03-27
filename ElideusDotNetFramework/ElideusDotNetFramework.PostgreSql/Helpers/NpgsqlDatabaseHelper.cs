@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace ElideusDotNetFramework.Database
+namespace ElideusDotNetFramework.PostgreSql
 {
     public class NpgsqlDatabaseHelper
     {

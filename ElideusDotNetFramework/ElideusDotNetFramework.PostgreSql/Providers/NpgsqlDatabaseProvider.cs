@@ -1,7 +1,7 @@
-﻿using ElideusDotNetFramework.Application;
+﻿using ElideusDotNetFramework.Core;
 using Npgsql;
 
-namespace ElideusDotNetFramework.Database
+namespace ElideusDotNetFramework.PostgreSql
 {
     public class NpgsqlDatabaseProvider<T> : INpgsqlDatabaseProvider<T>
     {

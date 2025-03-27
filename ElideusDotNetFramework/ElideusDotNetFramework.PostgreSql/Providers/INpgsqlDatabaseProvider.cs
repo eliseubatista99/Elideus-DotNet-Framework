@@ -1,4 +1,4 @@
-﻿namespace ElideusDotNetFramework.Database
+﻿namespace ElideusDotNetFramework.PostgreSql
 {
     public interface INpgsqlDatabaseProvider<T>
     {
