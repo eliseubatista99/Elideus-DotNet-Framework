@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.Core
 {
+    [ExcludeFromCodeCoverage]
     public class ApplicationContext : IApplicationContext
     {
         private static WebApplicationBuilder? applicationBuilder;

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace ElideusDotNetFramework.Core.Operations
 {
+    [ExcludeFromCodeCoverage]
     public class OperationHttpResult : IResult
     {
         public HttpStatusCode? StatusCode { get; private set; }

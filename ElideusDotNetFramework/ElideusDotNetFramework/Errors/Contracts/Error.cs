@@ -1,5 +1,8 @@
-﻿namespace ElideusDotNetFramework.Core.Errors
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ElideusDotNetFramework.Core.Errors
 {
+    [ExcludeFromCodeCoverage]
     public class Error
     {
         public required string Code { get; set; }

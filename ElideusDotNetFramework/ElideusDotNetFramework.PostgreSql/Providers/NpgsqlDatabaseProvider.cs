@@ -1,17 +1,19 @@
 ﻿using ElideusDotNetFramework.Core;
 using Npgsql;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.PostgreSql
 {
+    [ExcludeFromCodeCoverage]
     public class NpgsqlDatabaseProvider<T> : INpgsqlDatabaseProvider<T>
     {
-        protected IMapperProvider mapperProvider;
+        protected IMapperProvider? mapperProvider;
 
         protected string connectionString;
 
         public NpgsqlDatabaseProvider(IApplicationContext applicationContext)
         {
-            this.mapperProvider = applicationContext.GetDependency<IMapperProvider>()!;
+            this.mapperProvider = applicationContext.GetDependency<IMapperProvider>();
             connectionString = string.Empty;
         }
 
@@ -68,7 +70,7 @@ namespace ElideusDotNetFramework.PostgreSql
                     {
                         while (sqlReader!.Read())
                         {
-                            var dataEntry = mapperProvider.Map<NpgsqlDataReader, T>(sqlReader);
+                            var dataEntry = MapDataReader(sqlReader)!;
 
                             result.Add(dataEntry);
                         }
@@ -102,7 +104,7 @@ namespace ElideusDotNetFramework.PostgreSql
                     if (sqlReader.HasRows)
                     {
                         sqlReader.Read();
-                        result = mapperProvider.Map<NpgsqlDataReader, T>(sqlReader);
+                        result = MapDataReader(sqlReader);
 
                     }
 
@@ -141,6 +143,14 @@ namespace ElideusDotNetFramework.PostgreSql
             }
         }
 
-        
+        protected virtual T? MapDataReader(NpgsqlDataReader dataReader)
+        {
+            if(mapperProvider == null)
+            {
+                return default;
+            }
+
+            return mapperProvider.Map<NpgsqlDataReader, T>(dataReader);
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using ElideusDotNetFramework.Core.Operations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.Tests;
 
+[ExcludeFromCodeCoverage]
 public class OperationTest<TOperation, TIn, TOut> where TOperation : BaseOperation<TIn, TOut> where TIn : OperationInput where TOut : OperationOutput
 {
     protected TOperation? OperationToTest;

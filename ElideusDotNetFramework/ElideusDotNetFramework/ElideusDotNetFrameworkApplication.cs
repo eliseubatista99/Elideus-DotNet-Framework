@@ -3,9 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using ElideusDotNetFramework.Core.Operations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.Core
 {
+    [ExcludeFromCodeCoverage]
     public class ElideusDotNetFrameworkApplication
     {
         protected IApplicationContext? ApplicationContext { get; set; }

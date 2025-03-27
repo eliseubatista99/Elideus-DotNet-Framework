@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.Core.Operations
 {
+    [ExcludeFromCodeCoverage]
     public class OperationsBuilder
     {
         protected void MapGetOperation<TOperation, TIn, TOut>(ref WebApplication app, IApplicationContext context, TOperation operation) where TOperation : BaseOperation<TIn, TOut> where TIn : OperationInput where TOut : OperationOutput

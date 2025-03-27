@@ -1,7 +1,9 @@
 ﻿using Npgsql;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.PostgreSql
 {
+    [ExcludeFromCodeCoverage]
     public class NpgsqlDatabaseHelper
     {
         public static (NpgsqlTransaction transaction, NpgsqlCommand command) InitialzieSqlTransaction(NpgsqlConnection connection)

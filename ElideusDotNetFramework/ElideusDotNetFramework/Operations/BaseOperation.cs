@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using Newtonsoft.Json;
 using ElideusDotNetFramework.Core.Errors;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.Core.Operations
 {
+    [ExcludeFromCodeCoverage]
     public class BaseOperation<TIn, TOut> where TIn : OperationInput where TOut : OperationOutput
     {
         public string OperationEndpoint { get; set; } = "/BaseOperation";
