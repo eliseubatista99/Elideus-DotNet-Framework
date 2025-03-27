@@ -15,37 +15,37 @@ namespace ElideusDotNetFramework.Database
             connectionString = string.Empty;
         }
 
-        public bool CreateTableIfNotExists()
+        public virtual bool CreateTableIfNotExists()
         {
             return true;
         }
 
-        public List<T> GetAll()
+        public virtual List<T> GetAll()
         {
             return new List<T>();
         }
 
-        public T? GetById(string id)
+        public virtual T? GetById(string id)
         {
             return default;
         }
 
-        public bool Add(T entry)
+        public virtual bool Add(T entry)
         {
             return true;
         }
 
-        public bool Edit(T entry)
+        public virtual bool Edit(T entry)
         {
             return true;
         }
 
-        public bool Delete(string id)
+        public virtual bool Delete(string id)
         {
             return true;
         }
 
-        public bool DeleteAll()
+        public virtual bool DeleteAll()
         {
             return true;
         }

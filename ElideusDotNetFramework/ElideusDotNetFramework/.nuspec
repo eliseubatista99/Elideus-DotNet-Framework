@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>ElideusDotNetFramework</id>
-		<version>1.0.30</version>
+		<version>1.0.31</version>
 		<authors>Eliseu Batista</authors>
 		<license type="expression">MIT</license>
 		<licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
@@ -10,32 +10,6 @@
 		<readme>README.md</readme>
 		<description>Framework For Dot Net Core Web Api</description>
 		<releaseNotes>
-			1.0.30 - Added NpgsqlDatabaseProvider
-			1.0.29 - Added output serialization
-			1.0.28 - Added output serialization
-			1.0.27 - Added input errors
-			1.0.26 - Try to add fixture to base test
-			1.0.25 - Added tests assembly fixture
-			1.0.24 - Added tests assembly fixture
-			1.0.23 - Added tests assembly fixture
-			1.0.22 - Simplify tests structure
-			1.0.21 - Trying to fix dependencies initialization in tests
-			1.0.20 - Fixed Tests Mocks Builder
-			1.0.19 - Fixed Tests builder concurrency
-			1.0.18 - Fixed configuration and logger mock
-			1.0.17 - Fixed application context mock
-			1.0.16 - Added TestsHelper
-			1.0.15 - Improved Base Operation Test
-			1.0.14 - Added Base Operation Test
-			1.0.13 - Added Tests Application Context Mock
-			1.0.12 - Added tests builder
-			1.0.11 - Fixed Swagger Exception
-			1.0.10 - Fixed ApplicationContext null exception
-			1.0.9 - Fixed ApplicationContext null exception
-			1.0.8 - Added Dependency injection by value
-			1.0.7 - Fixed AutoMapper null exception
-			1.0.6 - Fixed Application context dependency injection
-			1.0.5 - Improved Application Context
 			1.0.0 - Created base project
 		</releaseNotes>
 		<copyright>Copyright 2025 Eliseu Batista</copyright>
