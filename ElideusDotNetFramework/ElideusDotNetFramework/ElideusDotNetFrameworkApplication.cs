@@ -1,13 +1,13 @@
-﻿using ElideusDotNetFramework.Providers.Contracts;
-using ElideusDotNetFramework.Providers;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ElideusDotNetFramework.Operations;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using ElideusDotNetFramework.Core.Operations;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ElideusDotNetFramework
+namespace ElideusDotNetFramework.Core
 {
+    [ExcludeFromCodeCoverage]
     public class ElideusDotNetFrameworkApplication
     {
         protected IApplicationContext? ApplicationContext { get; set; }

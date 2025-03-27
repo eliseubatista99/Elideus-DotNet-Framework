@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using ElideusDotNetFramework.Providers.Contracts;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ElideusDotNetFramework.Providers
+namespace ElideusDotNetFramework.Core
 {
+    [ExcludeFromCodeCoverage]
     public class MapperProvider: IMapperProvider
     {
         private static IMapper? mapper;

@@ -3,9 +3,7 @@
 namespace ElideusDotNetFramework.Core.Operations
 {
     [ExcludeFromCodeCoverage]
-    public class OperationInput
+    public class VoidOperationInput : OperationInput
     {
-        public InputMetadata? Metadata { get; set; }
-
     }
 }

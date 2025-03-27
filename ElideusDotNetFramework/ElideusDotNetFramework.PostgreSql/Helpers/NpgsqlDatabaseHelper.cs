@@ -1,7 +1,9 @@
 ﻿using Npgsql;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ElideusDotNetFramework.Helpers
+namespace ElideusDotNetFramework.PostgreSql
 {
+    [ExcludeFromCodeCoverage]
     public class NpgsqlDatabaseHelper
     {
         public static (NpgsqlTransaction transaction, NpgsqlCommand command) InitialzieSqlTransaction(NpgsqlConnection connection)
@@ -23,9 +25,9 @@ namespace ElideusDotNetFramework.Helpers
 
         public static string? ReadColumnValue(NpgsqlDataReader sqlReader, string columnName)
         {
-            var value = (sqlReader[columnName]);
+            var value = sqlReader[columnName];
 
-            if (value is System.DBNull)
+            if (value is DBNull)
             {
                 return null;
             }
@@ -33,11 +35,11 @@ namespace ElideusDotNetFramework.Helpers
             return value.ToString();
         }
 
-        public static Nullable<T> ReadColumnValue<T>(NpgsqlDataReader sqlReader, string columnName) where T : struct
+        public static T? ReadColumnValue<T>(NpgsqlDataReader sqlReader, string columnName) where T : struct
         {
-            var value = (sqlReader[columnName]);
+            var value = sqlReader[columnName];
 
-            if (value is System.DBNull)
+            if (value is DBNull)
             {
                 return null;
             }
@@ -54,5 +56,7 @@ namespace ElideusDotNetFramework.Helpers
         {
             return date.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
         }
+
+
     }
 }

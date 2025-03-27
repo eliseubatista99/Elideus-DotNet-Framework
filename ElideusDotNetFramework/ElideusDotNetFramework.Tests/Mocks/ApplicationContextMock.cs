@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
-using ElideusDotNetFramework.Providers;
-using ElideusDotNetFramework.Providers.Contracts;
+using ElideusDotNetFramework.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ElideusDotNetFramework.Tests.Mocks
+namespace ElideusDotNetFramework.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class ApplicationContextMock : TestMock<IApplicationContext>, IApplicationContext
     {
         protected List<object> dependencies = new List<object>();

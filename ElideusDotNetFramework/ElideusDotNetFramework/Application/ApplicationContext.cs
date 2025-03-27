@@ -1,9 +1,10 @@
-﻿using ElideusDotNetFramework.Providers.Contracts;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ElideusDotNetFramework.Providers
+namespace ElideusDotNetFramework.Core
 {
+    [ExcludeFromCodeCoverage]
     public class ApplicationContext : IApplicationContext
     {
         private static WebApplicationBuilder? applicationBuilder;

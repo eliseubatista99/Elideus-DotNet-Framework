@@ -1,5 +1,8 @@
-﻿namespace ElideusDotNetFramework.Tests.Mocks
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ElideusDotNetFramework.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class TestMock<T>
     {
         protected static readonly object _lock = new object();

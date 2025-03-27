@@ -1,8 +1,9 @@
-﻿using ElideusDotNetFramework.Operations;
-using ElideusDotNetFramework.Operations.Contracts;
+﻿using ElideusDotNetFramework.Core.Operations;
+using System.Diagnostics.CodeAnalysis;
 
-namespace ElideusDotNetFramework.Tests.Helpers
+namespace ElideusDotNetFramework.Tests
 {
+    [ExcludeFromCodeCoverage]
     public static class TestsHelper
     {
         public static async Task<TOut> SimulateCall<TOperation, TIn, TOut>(TOperation operation, TIn input) where TOperation : BaseOperation<TIn, TOut> where TIn : OperationInput where TOut : OperationOutput

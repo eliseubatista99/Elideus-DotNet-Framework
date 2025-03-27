@@ -1,31 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<Version>1.0.26</Version>
+	<Version>1.0.2</Version>
 	<IsPackable>true</IsPackable>
 	<TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageId>elideus-dot-net-framework</PackageId>
+    <PackageId>elideus-dot-net-framework-core</PackageId>
     <Title>Elideus Dot Net Framework</Title>
     <Authors>eliseubatista99</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.12" />
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
-		<PackageReference Include="Npgsql" Version="9.0.3" />
 		<PackageReference Include="AutoMapper" Version="14.0.0" />
-		<PackageReference Include="coverlet.collector" Version="6.0.2" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-		<PackageReference Include="xunit" Version="2.9.2" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
-		<PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
 		<None Include="..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
-
 </Project>

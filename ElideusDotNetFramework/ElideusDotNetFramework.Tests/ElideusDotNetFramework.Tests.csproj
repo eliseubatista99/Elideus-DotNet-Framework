@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Version>1.0.2</Version>
+		<IsPackable>true</IsPackable>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageId>elideus-dot-net-framework-tests</PackageId>
+		<Title>Elideus Dot Net Framework - Tests</Title>
+		<Authors>eliseubatista99</Authors>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ElideusDotNetFramework\ElideusDotNetFramework.Core.csproj" />
+	</ItemGroup>
+</Project>

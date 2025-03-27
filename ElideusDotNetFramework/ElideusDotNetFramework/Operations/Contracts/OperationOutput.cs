@@ -1,8 +1,10 @@
-﻿using ElideusDotNetFramework.Errors.Contracts;
+﻿using ElideusDotNetFramework.Core.Errors;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
-namespace ElideusDotNetFramework.Operations.Contracts
+namespace ElideusDotNetFramework.Core.Operations
 {
+    [ExcludeFromCodeCoverage]
     public class OperationOutput
     {
         public HttpStatusCode? StatusCode { get; set; }
