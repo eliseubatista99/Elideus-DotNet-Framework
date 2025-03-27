@@ -66,14 +66,6 @@ namespace ElideusDotNetFramework.Core
                        .AllowAnyHeader();
             }));
 
-            // Add cors for localhost
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
-                });
-            });
 
             this.InitializeApplicationContext(ref builder);
             this.InjectDependencies(ref builder);
