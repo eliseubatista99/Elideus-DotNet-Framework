@@ -1,11 +1,12 @@
 ﻿using ElideusDotNetFramework.Core;
+using ElideusDotNetFramework.Database;
 using Npgsql;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.PostgreSql
 {
     [ExcludeFromCodeCoverage]
-    public class NpgsqlDatabaseProvider<T> : INpgsqlDatabaseProvider<T>
+    public class NpgsqlDatabaseProvider<T> : IDatabaseProvider<T>
     {
         protected IMapperProvider? mapperProvider;
 
