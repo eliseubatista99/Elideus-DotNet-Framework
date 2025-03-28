@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Core", "ElideusDotNetFramework\ElideusDotNetFramework.Core.csproj", "{202A4E0F-18D6-410D-802E-10B11E92A65A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Tests", "ElideusDotNetFramework.Tests\ElideusDotNetFramework.Tests.csproj", "{3079842F-B0EC-4915-9D59-DE5CD4AD184A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Authentication", "ElideusDotNetFramework.Authentication\ElideusDotNetFramework.Authentication.csproj", "{FCE8D2B9-D547-4020-89FE-669A894145BB}"
@@ -15,16 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Database.PostgreSql", "ElideusDotNetFramework.Database.PostgreSql\ElideusDotNetFramework.Database.PostgreSql.csproj", "{4F7B7314-3AC2-42D0-9744-A92B0B560247}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElideusDotNetFramework.Core", "ElideusDotNetFramework.Core\ElideusDotNetFramework.Core.csproj", "{836F3F36-94C6-4102-A31A-279EB7A34743}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{202A4E0F-18D6-410D-802E-10B11E92A65A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{202A4E0F-18D6-410D-802E-10B11E92A65A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{202A4E0F-18D6-410D-802E-10B11E92A65A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{202A4E0F-18D6-410D-802E-10B11E92A65A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3079842F-B0EC-4915-9D59-DE5CD4AD184A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3079842F-B0EC-4915-9D59-DE5CD4AD184A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3079842F-B0EC-4915-9D59-DE5CD4AD184A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{4F7B7314-3AC2-42D0-9744-A92B0B560247}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F7B7314-3AC2-42D0-9744-A92B0B560247}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F7B7314-3AC2-42D0-9744-A92B0B560247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{836F3F36-94C6-4102-A31A-279EB7A34743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{836F3F36-94C6-4102-A31A-279EB7A34743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{836F3F36-94C6-4102-A31A-279EB7A34743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{836F3F36-94C6-4102-A31A-279EB7A34743}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
