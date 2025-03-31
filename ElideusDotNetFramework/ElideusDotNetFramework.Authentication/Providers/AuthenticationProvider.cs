@@ -21,14 +21,25 @@ namespace ElideusDotNetFramework.Authentication
             applicationContext = _applicationContext;
         }
   
-        protected virtual (SymmetricSecurityKey key, string issuer, string audience, DateTime expireDateTime, int lifeTime) GetConfiguration()
+        protected virtual (SymmetricSecurityKey key, string issuer, string audience, DateTime expireDateTime, int lifeTime) GetTokenConfiguration()
         {
             return (new SymmetricSecurityKey(Encoding.UTF8.GetBytes(string.Empty)), string.Empty, string.Empty, DateTime.UtcNow, 0);
         }
 
+        protected virtual (List<Claim> claims, string securityAlgorithm) GetGenerationConfigs(string id)
+        {
+            var claims = new List<Claim>
+                {
+                    new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new(JwtRegisteredClaimNames.Name, id),
+                };
+
+            return (claims, SecurityAlgorithms.HmacSha256);
+        }
+
         public void AddAuthenticationToApplicationBuilder(ref WebApplicationBuilder builder)
         {
-            var authConfigs = GetConfiguration();
+            var authConfigs = GetTokenConfiguration();
 
             // Add the process of verifying who they are
             builder.Services.AddAuthentication(x =>
@@ -86,45 +97,42 @@ namespace ElideusDotNetFramework.Authentication
 
         public (string token, DateTime expirationTime) GenerateToken(string id)
         {
-            var configs = GetConfiguration();
+            var tokenConfig = GetTokenConfiguration();
+            var generationConfigs = GetGenerationConfigs(id);
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new List<Claim>
-                {
-                    new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new(JwtRegisteredClaimNames.Name, id),
-                }),
-                Expires = configs.expireDateTime,
-                Issuer = configs.issuer,
-                Audience = configs.audience,
-                SigningCredentials = new SigningCredentials(configs.key, SecurityAlgorithms.HmacSha256),
+                Subject = new ClaimsIdentity(generationConfigs.claims),
+                Expires = tokenConfig.expireDateTime,
+                Issuer = tokenConfig.issuer,
+                Audience = tokenConfig.audience,
+                SigningCredentials = new SigningCredentials(tokenConfig.key, generationConfigs.securityAlgorithm),
 
             };
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             var securityToken = handler.CreateToken(tokenDescriptor);
 
-            return (handler.WriteToken(securityToken), configs.expireDateTime);
+            return (handler.WriteToken(securityToken), tokenConfig.expireDateTime);
         }
 
         public (bool isValid, DateTime expirationTime) IsValidToken(string token)
         {
             try
             {
-                var configs = GetConfiguration();
+                var tokenConfig = GetTokenConfiguration();
 
                 var tokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = true,
                     ValidateIssuer = true,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = configs.key,
+                    IssuerSigningKey = tokenConfig.key,
                     ValidateLifetime = false,
-                    ValidIssuer = configs.issuer,
-                    ValidAudience = configs.audience,
+                    ValidIssuer = tokenConfig.issuer,
+                    ValidAudience = tokenConfig.audience,
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -148,9 +156,9 @@ namespace ElideusDotNetFramework.Authentication
 
         public int GetTokenLifeTime()
         {
-            var configs = GetConfiguration();
+            var tokenConfig = GetTokenConfiguration();
 
-            return configs.lifeTime;
+            return tokenConfig.lifeTime;
         }
     }
 }

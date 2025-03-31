@@ -27,7 +27,7 @@ namespace ElideusDotNetFramework.Core.Operations
         /// </summary>
         /// <param name="input">The operation input</param>
         /// <returns>A possible error and status code</returns>
-        protected virtual async Task<(HttpStatusCode? StatusCode, Error? Error)> ValidateInput(TIn input)
+        protected virtual async Task<(HttpStatusCode? StatusCode, Error? Error)> ValidateInput(HttpRequest request, TIn input)
         {
             return (HttpStatusCode.OK, null);
         }
@@ -56,11 +56,11 @@ namespace ElideusDotNetFramework.Core.Operations
         /// </summary>
         /// <param name="input">The operation input</param>
         /// <returns>An operation result with a status code the operation output</returns>
-        public virtual async Task<IResult> Call(TIn input)
+        public virtual async Task<IResult> Call(HttpRequest request, TIn input)
         {
             await InitAsync();
 
-            var validateInputResult = await ValidateInput(input);
+            var validateInputResult = await ValidateInput(request, input);
 
             // If the input is invalid, return the error and status code
             if (validateInputResult.Error != null || validateInputResult.StatusCode != HttpStatusCode.OK)
