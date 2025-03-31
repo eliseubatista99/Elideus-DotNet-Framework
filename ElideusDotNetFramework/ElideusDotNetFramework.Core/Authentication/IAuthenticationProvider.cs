@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace ElideusDotNetFramework.Core
 {
@@ -8,6 +9,6 @@ namespace ElideusDotNetFramework.Core
 
         public (TokenData token, TokenData refreshToken) GenerateTokens(string id);
 
-        public (bool isValid, DateTime expirationTime) IsValidToken(string token);
+        public (bool isValid, DateTime expirationTime, List<Claim> claims) IsValidToken(string token);
     }
 }

@@ -38,16 +38,18 @@ namespace ElideusDotNetFramework.Core
             var refreshTokenConfig = GetRefreshTokenConfiguration();
 
             var token = GenerateToken(tokenConfig, id);
-            var refreshToken = GenerateToken(tokenConfig, id);
+            var refreshToken = GenerateToken(refreshTokenConfig, id);
 
             return (token, refreshToken);
         }
 
-        public (bool isValid, DateTime expirationTime) IsValidToken(string token)
+        public (bool isValid, DateTime expirationTime, List<Claim> claims) IsValidToken(string token)
         {
             try
             {
                 var tokenConfig = GetTokenConfiguration();
+
+                token = CleanupToken(token);
 
                 var tokenValidationParameters = new TokenValidationParameters
                 {
@@ -68,21 +70,28 @@ namespace ElideusDotNetFramework.Core
 
                 if (jwtSecurityToken is null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return (false, DateTime.Now);
+                    return (false, DateTime.Now, new List<Claim>());
                 }
 
-                return (true, jwtSecurityToken.ValidTo);
+                return (true, jwtSecurityToken.ValidTo, jwtSecurityToken.Claims.ToList());
             }
             catch (Exception ex)
             {
-                return (false, DateTime.Now);
+                return (false, DateTime.Now, new List<Claim>());
             }
         }
    
-        //private string Backup()
-        //{
-        //    return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-        //}
+        protected virtual string CleanupToken(string token)
+        {
+            var tokenFirstSix = token.Substring(0, 6);
+
+            if (tokenFirstSix == "Bearer")
+            {
+                token = token.Substring(7);
+            }
+
+            return token;
+        }
 
         protected virtual TokenConfiguration GetTokenConfiguration()
         {
