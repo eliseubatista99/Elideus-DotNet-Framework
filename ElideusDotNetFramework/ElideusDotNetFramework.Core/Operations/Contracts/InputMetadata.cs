@@ -1,10 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using ElideusDotNetFramework.Core.Enums;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ElideusDotNetFramework.Core.Operations
 {
     [ExcludeFromCodeCoverage]
     public class InputMetadata
     {
-        public string? Token { get; set; }
+        public Language? Language { get; set; }
     }
 }

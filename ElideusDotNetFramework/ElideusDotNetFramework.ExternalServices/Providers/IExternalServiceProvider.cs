@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using System.Security.Claims;
-
-namespace ElideusDotNetFramework.ExternalServices
+﻿namespace ElideusDotNetFramework.ExternalServices
 {
     public interface IExternalServiceProvider
     {
