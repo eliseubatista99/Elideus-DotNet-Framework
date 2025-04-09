@@ -1,23 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.0.2</Version>
+		<Version>1.0.0</Version>
 		<IsPackable>true</IsPackable>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageId>elideus-dot-net-framework-postgresql</PackageId>
-		<Title>Elideus Dot Net Framework - PostgreSql</Title>
+		<PackageId>elideus-dot-net-framework-database-postgresql</PackageId>
+		<Title>Elideus Dot Net Framework - Database - PostgreSql</Title>
 		<Authors>eliseubatista99</Authors>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="elideus-dot-net-framework-database" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
 		<PackageReference Include="Npgsql" Version="9.0.3" />
-		<None Include="..\README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\ElideusDotNetFramework\ElideusDotNetFramework.Core.csproj" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>

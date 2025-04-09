@@ -1,6 +1,6 @@
-﻿namespace ElideusDotNetFramework.PostgreSql
+﻿namespace ElideusDotNetFramework.Database
 {
-    public interface INpgsqlDatabaseProvider<T>
+    public interface IDatabaseProvider<T>
     {
         public bool CreateTableIfNotExists();
 

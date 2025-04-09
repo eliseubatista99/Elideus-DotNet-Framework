@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using ElideusDotNetFramework.Core.Operations;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ElideusDotNetFramework.Core
 {
@@ -11,8 +12,8 @@ namespace ElideusDotNetFramework.Core
     public class ElideusDotNetFrameworkApplication
     {
         protected IApplicationContext? ApplicationContext { get; set; }
-        protected virtual bool UseAuthentication { get; set; } = false;
         protected virtual OperationsBuilder OperationsBuilder { get; set; } = new OperationsBuilder();
+        protected virtual bool UseAuthentication { get; set; } = true;
 
         protected virtual void InjectDependencies(ref WebApplicationBuilder builder)
         {
@@ -20,6 +21,7 @@ namespace ElideusDotNetFramework.Core
             mapper.CreateMapper(new List<AutoMapper.Profile>());
 
             ApplicationContext?.AddDependency<IMapperProvider, MapperProvider>(ref builder, mapper);
+            ApplicationContext?.AddDependency<IAuthenticationProvider, AuthenticationProvider>(ref builder);
         }
 
         protected void InitializeApplicationContext(ref WebApplicationBuilder builder)
@@ -30,13 +32,9 @@ namespace ElideusDotNetFramework.Core
 
         protected virtual void ConfigureAuthentication(ref WebApplicationBuilder builder)
         {
-            // Add the process of verifying what access they have
-        }
+            var authProvider = ApplicationContext!.GetDependency<IAuthenticationProvider>()!;
 
-        protected virtual void AddAuthorizationToSwagger(ref WebApplicationBuilder builder, ref SwaggerGenOptions options)
-        {
-            // Add the process of verifying what access they have
-            builder.Services.AddAuthorization();
+            authProvider!.AddValidationParameters(ref builder);
         }
 
         protected virtual void InitializeDatabase(ref WebApplicationBuilder builder)
@@ -66,6 +64,7 @@ namespace ElideusDotNetFramework.Core
                        .AllowAnyHeader();
             }));
 
+
             this.InitializeApplicationContext(ref builder);
             this.InjectDependencies(ref builder);
             this.InitializeAutoMapper();
@@ -73,25 +72,48 @@ namespace ElideusDotNetFramework.Core
             if (UseAuthentication)
             {
                 this.ConfigureAuthentication(ref builder);
+            }
 
+            if (UseAuthentication)
+            {
                 builder.Services.AddAuthorization();
-
             }
 
             InitializeDatabase(ref builder);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddEndpointsApiExplorer();;
 
             builder.Services.AddSwaggerGen(opt =>
             {
-                if (UseAuthentication)
+                opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    AddAuthorizationToSwagger(ref builder, ref opt);
-                }
+                    In = ParameterLocation.Header,
+                    Description = "Please enter token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[0]
+                        }
+                    });
             });
 
             var app = builder.Build();
+
+            app.UseCors();
 
             MapOperations(ref app);
 
