@@ -1,4 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -15,21 +18,24 @@ namespace ElideusDotNetFramework.Core
         {
             applicationContext = _applicationContext;
         }
-  
-        public TokenValidationParameters GetTokenValidationParameters()
-        {
-            var authConfigs = GetTokenConfiguration();
 
-            return new TokenValidationParameters
+
+        public void AddValidationParameters(ref WebApplicationBuilder builder)
+        {
+            var validationParameters = GetTokenValidationParameters();
+
+            // Add the process of verifying who they are
+            builder.Services.AddAuthentication(x =>
             {
-                ValidIssuer = authConfigs.Issuer,
-                ValidAudience = authConfigs.Audience,
-                IssuerSigningKey = authConfigs.Key,
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-            };
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = validationParameters;
+            });
         }
 
         public (TokenData token, TokenData refreshToken) GenerateTokens(string id)
@@ -37,18 +43,47 @@ namespace ElideusDotNetFramework.Core
             var tokenConfig = GetTokenConfiguration();
             var refreshTokenConfig = GetRefreshTokenConfiguration();
 
-            var token = GenerateToken(tokenConfig, id);
-            var refreshToken = GenerateToken(refreshTokenConfig, id);
+            var token = GenerateToken(id);
+            var refreshToken = GenerateRefreshToken(id);
 
             return (token, refreshToken);
         }
 
         public (bool isValid, DateTime expirationTime, List<Claim> claims) IsValidToken(string token)
         {
+            var tokenConfig = GetTokenConfiguration();
+
+            return ValidateToken(token, tokenConfig);
+        }
+
+        public (bool isValid, DateTime expirationTime, List<Claim> claims) IsValidRefreshToken(string token)
+        {
+            var tokenConfig = GetRefreshTokenConfiguration();
+
+            return ValidateToken(token, tokenConfig);
+        }
+
+
+        protected virtual TokenValidationParameters GetTokenValidationParameters()
+        {
+            var authConfigs = GetTokenConfiguration();
+
+            return new TokenValidationParameters
+            {
+                ValidIssuer = authConfigs?.Issuer,
+                ValidAudience = authConfigs?.Audience,
+                IssuerSigningKey = authConfigs?.Key,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+            };
+        }
+
+        protected virtual (bool isValid, DateTime expirationTime, List<Claim> claims) ValidateToken(string token, TokenConfiguration config)
+        {
             try
             {
-                var tokenConfig = GetTokenConfiguration();
-
                 token = CleanupToken(token);
 
                 var tokenValidationParameters = new TokenValidationParameters
@@ -56,10 +91,10 @@ namespace ElideusDotNetFramework.Core
                     ValidateAudience = true,
                     ValidateIssuer = true,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = tokenConfig.Key,
+                    IssuerSigningKey = config.Key,
                     ValidateLifetime = false,
-                    ValidIssuer = tokenConfig.Issuer,
-                    ValidAudience = tokenConfig.Audience,
+                    ValidIssuer = config.Issuer,
+                    ValidAudience = config.Audience,
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -80,7 +115,8 @@ namespace ElideusDotNetFramework.Core
                 return (false, DateTime.Now, new List<Claim>());
             }
         }
-   
+
+
         protected virtual string CleanupToken(string token)
         {
             var tokenFirstSix = token.Substring(0, 6);
@@ -126,9 +162,38 @@ namespace ElideusDotNetFramework.Core
             return (claims, SecurityAlgorithms.HmacSha256);
         }
 
-        protected virtual TokenData GenerateToken(TokenConfiguration config, string id)
+        protected virtual TokenData GenerateRefreshToken(string id)
         {
             var generationConfigs = GetGenerationConfigs(id);
+            var config = GetRefreshTokenConfiguration();
+
+            var expireDateTime = DateTime.UtcNow.AddMinutes(config.LifeTime);
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(generationConfigs.claims),
+                Expires = expireDateTime,
+                Issuer = config.Issuer,
+                Audience = config.Audience,
+                SigningCredentials = new SigningCredentials(config.Key, generationConfigs.securityAlgorithm),
+
+            };
+
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            var securityToken = handler.CreateToken(tokenDescriptor);
+
+            return new TokenData
+            {
+                Token = handler.WriteToken(securityToken),
+                ExpirationDateTime = expireDateTime,
+            };
+        }
+
+        protected virtual TokenData GenerateToken(string id)
+        {
+            var generationConfigs = GetGenerationConfigs(id);
+            var config = GetTokenConfiguration();
 
             var expireDateTime = DateTime.UtcNow.AddMinutes(config.LifeTime);
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -5,7 +5,7 @@ namespace ElideusDotNetFramework.Core.Operations
     [ExcludeFromCodeCoverage]
     public class OperationInput
     {
-        public ElideusDotNetFrameworkConfiguration? Metadata { get; set; }
+        public InputMetadata? Metadata { get; set; }
 
     }
 }

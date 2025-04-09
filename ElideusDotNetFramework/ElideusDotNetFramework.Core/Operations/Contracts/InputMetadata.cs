@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace ElideusDotNetFramework.Core.Operations
 {
     [ExcludeFromCodeCoverage]
-    public class ElideusDotNetFrameworkConfiguration
+    public class InputMetadata
     {
         public Language? Language { get; set; }
     }

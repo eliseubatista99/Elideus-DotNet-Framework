@@ -2,6 +2,7 @@
 using ElideusDotNetFramework.Core.Operations;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.Json;
 
@@ -27,7 +28,7 @@ namespace ElideusDotNetFramework.ExternalServices
             return string.Empty;
         }
 
-        protected virtual async Task<TOut> CallExternalPostOperation<TIn, TOut>(string endpoint, TIn input) where TIn : OperationInput where TOut : OperationOutput
+        public async Task<TOut> CallExternalPostOperation<TIn, TOut>(string endpoint, TIn input) where TIn : OperationInput where TOut : OperationOutput
         {
             Uri requestUri = new Uri($"{GetServiceUrl()}/{endpoint}");
 
@@ -36,6 +37,7 @@ namespace ElideusDotNetFramework.ExternalServices
             request.Headers.Accept.Clear();
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", GetToken());
+
             request.Content = new StringContent(JsonSerializer.Serialize(input),
                                                 Encoding.UTF8,
                                                 "application/json");//CONTENT-TYPE header

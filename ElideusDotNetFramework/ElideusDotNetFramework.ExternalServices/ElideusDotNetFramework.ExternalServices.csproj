@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<IsPackable>true</IsPackable>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -14,7 +14,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="elideus-dot-net-framework-authentication" Version="1.0.1" />
-		<PackageReference Include="elideus-dot-net-framework-core" Version="2.0.0" />
+		<PackageReference Include="elideus-dot-net-framework-core" Version="2.0.9" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>

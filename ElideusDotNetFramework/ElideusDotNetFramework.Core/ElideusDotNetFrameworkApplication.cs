@@ -13,6 +13,7 @@ namespace ElideusDotNetFramework.Core
     {
         protected IApplicationContext? ApplicationContext { get; set; }
         protected virtual OperationsBuilder OperationsBuilder { get; set; } = new OperationsBuilder();
+        protected virtual bool UseAuthentication { get; set; } = true;
 
         protected virtual void InjectDependencies(ref WebApplicationBuilder builder)
         {
@@ -33,20 +34,7 @@ namespace ElideusDotNetFramework.Core
         {
             var authProvider = ApplicationContext!.GetDependency<IAuthenticationProvider>()!;
 
-            var validationParameters = authProvider!.GetTokenValidationParameters();
-
-            // Add the process of verifying who they are
-            builder.Services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = validationParameters;
-            });
+            authProvider!.AddValidationParameters(ref builder);
         }
 
         protected virtual void InitializeDatabase(ref WebApplicationBuilder builder)
@@ -81,18 +69,20 @@ namespace ElideusDotNetFramework.Core
             this.InjectDependencies(ref builder);
             this.InitializeAutoMapper();
 
-            this.ConfigureAuthentication(ref builder);
+            if (UseAuthentication)
+            {
+                this.ConfigureAuthentication(ref builder);
+            }
 
-            builder.Services.AddAuthorization();
+            if (UseAuthentication)
+            {
+                builder.Services.AddAuthorization();
+            }
 
             InitializeDatabase(ref builder);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-
-
-            // Add the process of verifying what access they have
-            builder.Services.AddAuthorization();
+            builder.Services.AddEndpointsApiExplorer();;
 
             builder.Services.AddSwaggerGen(opt =>
             {
@@ -140,9 +130,12 @@ namespace ElideusDotNetFramework.Core
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication();
+            if (UseAuthentication)
+            {
+                app.UseAuthentication();
 
-            app.UseAuthorization();
+                app.UseAuthorization();
+            }
 
             app.Run();
         }
