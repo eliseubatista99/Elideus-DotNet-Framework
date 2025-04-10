@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.0.3</Version>
+		<Version>2.1.0</Version>
 		<IsPackable>true</IsPackable>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -13,7 +13,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="elideus-dot-net-framework-core" Version="1.0.2" />
+		<PackageReference Include="elideus-dot-net-framework-core" Version="2.1.0" />
 		<PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
