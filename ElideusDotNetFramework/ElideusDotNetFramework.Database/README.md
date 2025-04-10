@@ -1,11 +1,34 @@
 # Elideus | DotNet Framework Database
 
-Database is a subpackage of the Elideus-DotNet-Framework, and specifies the basic operations of a database provider, which are:
+**Database** is a subpackage of the *Elideus-DotNet-Framework*, and defines the basic operations required for implementing a database provider.
 
-- CreateTableIfNotExists: Created a table if it does not exists
-- GetAll: Retrieves all objects of type
-- GetById: Retrieves an object by the id
-- Add: Creates a new object
-- Edit: Updates an existing object
-- Delete: Deletes an object by id
-- DeleteAll: Deletes all objects in the table.
+---
+
+## Core Operations
+
+The following methods are specified by this package and should be implemented by any custom database provider:
+
+- `CreateTableIfNotExists`  
+  Creates the database table if it doesn't already exist.
+
+- `GetAll`  
+  Retrieves all records of the specified type.
+
+- `GetById`  
+  Retrieves a specific record by its ID.
+
+- `Add`  
+  Inserts a new record into the database.
+
+- `Edit`  
+  Updates an existing record.
+
+- `Delete`  
+  Removes a record by its ID.
+
+- `DeleteAll`  
+  Removes all records from the table.
+
+---
+
+This interface standardizes the structure of database operations, making it easier to manage and extend database providers consistently throughout the framework.
