@@ -1,1 +1,0 @@
-# Elideus-DotNet-Framework-PostgreSql
